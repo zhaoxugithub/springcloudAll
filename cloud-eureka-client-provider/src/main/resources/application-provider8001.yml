@@ -1,0 +1,25 @@
+spring:
+  # applicaton name 实际上表示的是一个组
+  application:
+    name: eureka-client-provider
+server:
+  port: 8001
+eureka:
+  client:
+    #此客户端是否获取eureka服务器注册表上的注册信息，默认为true
+    # 拉取注册地中心的服务列表
+    fetch-registry: true
+    #实例是否在eureka服务器上注册自己的信息以供其他服务发现，默认为true,即自己注册自己。
+    # 将自身服务注册到注册中心中,给其他服务进行调用
+    register-with-eureka: true
+    service-url:
+      #defaultZone 这个是不会提示的，此处需要自己写
+      #实际上属性应该是service-url,这个属性是个map（key-value）格式；当key是defaultZone的时候才能被解析；所以这里没有提示，
+      #但是自己还需要写一个defaultZone；
+      defaultZone: http://eureka1.com:7001/eureka
+  #服务注册中心实例的主机名
+  # instance 表示的是一个服务
+  instance:
+    hostname: provider
+    prefer-ip-address: false
+    instance-id: provider-8001
