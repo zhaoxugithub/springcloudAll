@@ -1,8 +1,7 @@
 spring:
   # applicaton name 实际上表示的是一个组
   application:
-    name: eureka-clie
-    nt-provider
+    name: eureka-client-provider
 server:
   port: 8003
 eureka:
