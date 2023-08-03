@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  **/
 // name 为product项目中application.yml配置文件中的application.name;
 // path 为product项目中application.yml配置文件中的context.path;
-@FeignClient(name = "eureka-client-provider8001")
+@FeignClient(name = "eureka-client-provider")
 //@Componet注解最好加上，不加idea会显示有错误，但是不影响系统运行；
 @Service
 public interface HelloService {
@@ -22,4 +22,7 @@ public interface HelloService {
 
     @RequestMapping(value = "/getTest01")
     String getTest01();
+
+    @RequestMapping("/getPort")
+    String getPort();
 }

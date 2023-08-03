@@ -39,6 +39,9 @@ public class HelloController {
     @Autowired
     private LoadBalancerClient lb;
 
+    @Autowired
+    RestTemplate restTemplate;
+
     @RequestMapping("/result")
     public String getHello() {
         return helloService.getProduct();
@@ -59,6 +62,13 @@ public class HelloController {
     public List<ServiceInstance> getAllInstance() {
         return discoveryClient.getInstances("EUREKASERVICE");
     }
+
+
+    @RequestMapping("/port")
+    public String getPort() {
+        return helloService.getPort();
+    }
+
 
     /**
      * 通过eurekaClient获取所有instance
@@ -96,10 +106,25 @@ public class HelloController {
     public String getResByLB() {
         // 从application所属的sever里面随机选择一个UP状态的instance(服务)
         // 负载均衡算法可以自定义
+        // 默认是轮训算法
+        // restTemplate上面不需要加注解@LoadBalanced
         ServiceInstance serviceInstance = lb.choose("eureka-client-provider");
         System.out.println(serviceInstance);
         String url = "http://" + serviceInstance.getHost() + ":" + serviceInstance.getPort() + "/getHello";
-        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject(url, String.class) + ":" + serviceInstance.getPort();
+    }
+
+    /**
+     * 把负载均衡的算法策略集中到restTemplate里面,只需要在创建restTemplate的方法上加上一个注解
+     *
+     * @return
+     */
+    @RequestMapping("/getResByRestOverLB")
+    public String getResByRestOverLB() {
+        /**
+         *restTemplate上面需要加注解@LoadBalanced
+         */
+        String url = "http://eureka-client-provider/getPort";
         return restTemplate.getForObject(url, String.class);
     }
 }

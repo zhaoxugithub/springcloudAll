@@ -3,7 +3,28 @@ server:
 spring:
   application:
     name: eurekaService
+
+  # eureka 安全连接配置
+  security:
+    user:
+      name: root
+      password: root
+
+#开启所有监控端点和actuator有关系
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 eureka:
+  server:
+    # 关闭自我保护
+    enable-self-preservation: false
+    #自我保护机制的阈值百分比,默认0.85,如果在最后一分钟内,
+    # 所有的注册服务的实际心跳总和 < 0.85*理论心跳总和,
+    # ,并且eureka.server.wait-time-in-ms-when-sync-empty=0就会立刻触发自我保护机制.
+    renewal-percent-threshold: 0.85
+  #    wait-time-in-ms-when-sync-empty: 5
   instance:
     # hostname 是用来表示主机的,appname是用来表示分组的
     hostname: eureka1.com #eureka服务端的实例名称
@@ -14,4 +35,4 @@ eureka:
     fetch-registry: true
     service-url:
       # 往eureka2注册
-      defaultZone: http://eureka2.com:7002/eureka/
+      defaultZone: http://root:123456@eureka2.com:7002/eureka/

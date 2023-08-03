@@ -1,8 +1,12 @@
 package com.serendipity.cloudeurekaclientprovider.controller;
 
+import com.netflix.discovery.DiscoveryManager;
+import com.serendipity.cloudeurekaclientprovider.service.HealthStatusService;
 import com.serendipity.cloudeurekaclientprovider.service.HelloService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -14,8 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
  **/
 @RestController
 public class HelloController {
+
+    @Value("${server.port}")
+    private String port;
+
+
     @Autowired
     private HelloService helloService;
+
+    @Autowired
+    private HealthStatusService healthStatusService;
 
     @GetMapping("/getHello")
     public String hello() {
@@ -25,5 +37,27 @@ public class HelloController {
     @GetMapping("/getTest01")
     public String test01() {
         return helloService.test01();
+    }
+
+    @GetMapping("/heath")
+    public String health(@RequestParam("status") Boolean status) {
+        healthStatusService.setStatus(status);
+        return healthStatusService.getHealth(true).toString();
+    }
+
+    @GetMapping("/getHealth")
+    public String getHealth() {
+        return healthStatusService.getHealth(true).toString();
+    }
+
+    @GetMapping("/getPort")
+    public String getPort() {
+        return "myport is :" + port;
+    }
+
+    @GetMapping("/down")
+    public String down() {
+        DiscoveryManager.getInstance().shutdownComponent();
+        return "下线成功";
     }
 }

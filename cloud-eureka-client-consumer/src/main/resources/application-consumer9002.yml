@@ -3,7 +3,12 @@ spring:
     name: eureka-client-consumer
 server:
   port: 9002
-
+#开启所有监控端点和actuator有关系
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 eureka:
   client:
     #此客户端是否获取eureka服务器注册表上的注册信息，默认为true
@@ -14,7 +19,7 @@ eureka:
       #defaultZone 这个是不会提示的，此处需要自己写
       #实际上属性应该是service-url,这个属性是个map（key-value）格式；当key是defaultZone的时候才能被解析；所以这里没有提示，
       #但是自己还需要写一个defaultZone；
-      defaultZone: http://eureka1.com:7001/eureka
+      defaultZone: http://root:root@eureka1.com:7001/eureka
   #服务注册中心实例的主机名
   instance:
     hostname: consumer

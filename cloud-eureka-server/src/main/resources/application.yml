@@ -1,3 +1,5 @@
 spring:
   profiles:
-    active: server7002
+    active: server7001
+#  main:
+#    allow-bean-definition-overriding: true
