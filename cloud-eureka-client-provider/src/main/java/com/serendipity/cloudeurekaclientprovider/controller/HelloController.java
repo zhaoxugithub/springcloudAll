@@ -5,9 +5,10 @@ import com.serendipity.cloudeurekaclientprovider.service.HealthStatusService;
 import com.serendipity.cloudeurekaclientprovider.service.HelloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
+import java.util.Map;
 
 /**
  * ClassName HelloController
@@ -52,12 +53,21 @@ public class HelloController {
 
     @GetMapping("/getPort")
     public String getPort() {
-        return "myport is :" + port;
+        return "myport is =====" + port;
     }
 
     @GetMapping("/down")
     public String down() {
         DiscoveryManager.getInstance().shutdownComponent();
         return "下线成功";
+    }
+
+    @PostMapping("/getMap")
+    public Map<String, Object> testRestTemplate(@RequestBody Map<String, String> map) {
+        if (map.get("param").equals("1")) {
+            return Collections.singletonMap("result", "hehe");
+        } else {
+            return Collections.singletonMap("resultObject", new int[]{1, 2, 3});
+        }
     }
 }

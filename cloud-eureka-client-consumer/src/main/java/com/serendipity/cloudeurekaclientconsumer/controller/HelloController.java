@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * ClassName HelloController
@@ -22,6 +24,19 @@ import java.util.List;
  * Version 1.0
  **/
 
+/**
+ * todo
+ * 1. 搞清楚SpringCloud loadBalance 和ribbon
+ * 2. 分文件夹写完RestTemplate
+ * 3. 分文件夹写完Feign
+ *
+ *
+ * 有一个不错的方法用来解耦消费者和生产者:
+ *  1.提炼出一个接口聚合的项目,在这个接口里面可以集成swagger
+ *  2.生产者和消费者服务,导入这个API接口聚合的项目依赖,这样子就可以继承实现这个接口API
+ *  3.消费者通过feignclient 定义生产者的微服务名称
+ *  4.这样的好处是可以解耦,并且,生产者和消费者并行开发,并且不用关心消费者是什么语言实现的
+ */
 @RestController
 public class HelloController {
 
@@ -125,6 +140,27 @@ public class HelloController {
          *restTemplate上面需要加注解@LoadBalanced
          */
         String url = "http://eureka-client-provider/getPort";
+        System.out.println("aaaaabbbbcccc");
         return restTemplate.getForObject(url, String.class);
+    }
+
+    @RequestMapping("/map01")
+    public Map test01RestTemplate() {
+        String url = "http://eureka-client-provider/getMap";
+        Map<String, String> params = new HashMap<>();
+        params.put("params1", "1");
+        Map forObject = restTemplate.postForObject(url, params, Map.class);
+        System.out.println(forObject);
+        return forObject;
+    }
+
+    @RequestMapping("/map02")
+    public Map test01RestTemplate2() {
+        String url = "http://eureka-client-provider/getMap";
+        Map<String, Object> params = new HashMap<>();
+        params.put("params1", "2");
+        Map forObject = restTemplate.postForObject(url, params, Map.class);
+        System.out.println(forObject);
+        return forObject;
     }
 }
