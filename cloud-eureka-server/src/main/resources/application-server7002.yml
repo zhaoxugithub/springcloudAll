@@ -1,5 +1,7 @@
+#-----------------服务端口-------------------------
 server:
   port: 7002
+#------------------微服务端口-----------------------
 spring:
   application:
     name: eurekaService
@@ -8,13 +10,14 @@ spring:
     user:
       name: root
       password: root
-#开启所有监控端点和actuator有关系
+#------------开启所有监控端点和actuator有关系----------
 management:
   endpoints:
     web:
       exposure:
         include: "*"
 
+#--------------注册中心--------------------------------
 eureka:
   server:
     # 关闭自我保护
@@ -23,11 +26,10 @@ eureka:
     # 所有的注册服务的实际心跳总和 < 0.85*理论心跳总和,
     # ,并且eureka.server.wait-time-in-ms-when-sync-empty=0就会立刻触发自我保护机制.
     renewal-percent-threshold: 0.85
-#    wait-time-in-ms-when-sync-empty: 0
+  #    wait-time-in-ms-when-sync-empty: 5
   instance:
     # hostname 是用来表示主机的,appname是用来表示分组的
     hostname: eureka2.com #eureka服务端的实例名称
-    # 两个eureka 相互进行服务列表同步,保证一致性,如果其中一个挂了,可以继续使用另外一个
   client:
     #是否将自己注册到Eureka Server,默认为true，由于当前就是server，故而设置成false，表明该服务不会向eureka注册自己的信息
     register-with-eureka: true

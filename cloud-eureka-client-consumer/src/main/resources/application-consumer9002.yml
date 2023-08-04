@@ -1,14 +1,42 @@
-spring:
-  application:
-    name: eureka-client-consumer
+# ---------------服务端口-------------------
 server:
   port: 9002
-#开启所有监控端点和actuator有关系
+# ---------------微服务相关---------------------------
+spring:
+  application:
+    # 微服务名称
+    name: eureka-client-consumer
+  cloud:
+    # openfeign 相关配置
+    openfeign:
+      client:
+        config:
+          # 指定微服务名称
+          eureka-client-provider:
+            # 客户端连接超时时间设置
+            connect-timeout: 2000
+            read-timeout: 2000
+            logger-level: full
+          # 定义微服务拦截器
+          request-interceptors:
+            - com.serendipity.cloudeurekaclientconsumer.interceptor.MyBasicAuthRequestInterceptor
+      # 开启压缩
+      compression:
+        # 请求压缩
+        request:
+          enabled: true
+          # 单位是B
+          min-request-size: 10000
+        # 响应压缩
+        response:
+          enabled: true
+#-----------开启所有监控端点和actuator有关系------------
 management:
   endpoints:
     web:
       exposure:
         include: "*"
+#------------注册中心相关------------------------------------------
 eureka:
   client:
     #此客户端是否获取eureka服务器注册表上的注册信息，默认为true
@@ -22,6 +50,8 @@ eureka:
       defaultZone: http://root:root@eureka1.com:7001/eureka
   #服务注册中心实例的主机名
   instance:
+    # 具体的服务,一般代表的是某一个微服务组的一个具体服务
     hostname: consumer
     prefer-ip-address: false
     instance-id: consumer-9002
+

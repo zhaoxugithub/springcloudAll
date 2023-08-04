@@ -70,4 +70,5 @@ public class HelloController {
             return Collections.singletonMap("resultObject", new int[]{1, 2, 3});
         }
     }
+
 }

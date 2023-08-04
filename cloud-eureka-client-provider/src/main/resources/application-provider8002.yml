@@ -1,10 +1,15 @@
+# ---------------微服务相关---------------------------
 spring:
   # applicaton name 实际上表示的是一个组
   application:
     name: eureka-client-provider
+#-------------服务端口--------------------------------
 server:
   port: 8002
-  #开启所有监控端点和actuator有关系
+  # 服务端开启压缩(接口请求过来的时候进行压缩)
+  compression:
+    enabled: true
+#----------开启所有监控端点和actuator有关系--------------
 management:
   endpoints:
     web:
@@ -14,7 +19,7 @@ management:
   endpoint:
     shutdown:
       enabled: true
-
+#------------注册中心相关-------------------------------
 eureka:
   client:
     #此客户端是否获取eureka服务器注册表上的注册信息，默认为true

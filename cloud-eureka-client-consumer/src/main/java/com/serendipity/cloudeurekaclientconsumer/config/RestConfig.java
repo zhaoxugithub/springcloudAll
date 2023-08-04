@@ -1,4 +1,4 @@
-package com.serendipity.cloudeurekaclientconsumer.controller.config;
+package com.serendipity.cloudeurekaclientconsumer.config;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;

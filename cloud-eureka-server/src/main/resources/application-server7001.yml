@@ -1,21 +1,23 @@
+#-----------------服务端口-------------------------
 server:
   port: 7001
+#------------------微服务端口-----------------------
 spring:
   application:
     name: eurekaService
-
   # eureka 安全连接配置
   security:
     user:
       name: root
       password: root
-
-#开启所有监控端点和actuator有关系
+#------------开启所有监控端点和actuator有关系----------
 management:
   endpoints:
     web:
       exposure:
         include: "*"
+
+#--------------注册中心--------------------------------
 eureka:
   server:
     # 关闭自我保护
