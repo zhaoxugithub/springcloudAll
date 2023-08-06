@@ -15,4 +15,7 @@ public interface ClientAPI {
 
     @GetMapping("/test02")
     String test02();
+
+    @GetMapping("/test03")
+    String test03();
 }

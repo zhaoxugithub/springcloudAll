@@ -18,12 +18,15 @@ public class TestController implements ClientAPI {
 
     @Value("${server.port}")
     private String port;
-    private final AtomicInteger count = new AtomicInteger(0);
+    private final AtomicInteger count02 = new AtomicInteger(0);
+    private final AtomicInteger count03 = new AtomicInteger(0);
+
     @Override
     public String test01() {
         System.out.println("provider:" + port + ":test01");
         return "provider:" + port + ":test01";
     }
+
     @Override
     public String test02() {
         try {
@@ -32,8 +35,15 @@ public class TestController implements ClientAPI {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        int i = count.incrementAndGet();
+        int i = count02.incrementAndGet();
         System.out.println("provider:" + port + ":test02,第" + i + "次调用..");
         return "provider:" + port + ":test02,第" + i + "次调用..";
+    }
+
+    @Override
+    public String test03() {
+        int i = count03.incrementAndGet();
+        System.out.println("provider:" + port + ":test03,第" + i + "次调用..");
+        return "provider:" + port + ":test03,第" + i + "次调用..";
     }
 }

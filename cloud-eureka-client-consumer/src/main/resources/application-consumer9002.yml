@@ -47,7 +47,7 @@ eureka:
       #defaultZone 这个是不会提示的，此处需要自己写
       #实际上属性应该是service-url,这个属性是个map（key-value）格式；当key是defaultZone的时候才能被解析；所以这里没有提示，
       #但是自己还需要写一个defaultZone；
-      defaultZone: http://root:root@eureka1.com:7001/eureka
+      defaultZone: http://eureka1.com:7001/eureka
   #服务注册中心实例的主机名
   instance:
     # 具体的服务,一般代表的是某一个微服务组的一个具体服务

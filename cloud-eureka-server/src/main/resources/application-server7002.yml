@@ -37,4 +37,4 @@ eureka:
     fetch-registry: true
     service-url:
       # 往eureka1注册
-      defaultZone: http://root:123456@eureka1.com:7001/eureka/
+      defaultZone: http://eureka1.com:7001/eureka/

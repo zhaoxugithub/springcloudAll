@@ -16,7 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
  **/
 // 这是因为加入了安全认证模块后，默认会开启 CSRF 跨站脚本攻击，需要禁用它，添加以下配置即可。
 @Configuration
-@EnableWebSecurity
+// @EnableWebSecurity
 public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
